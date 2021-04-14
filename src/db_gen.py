@@ -7,15 +7,15 @@ from sqlite3 import Error
 
 
 def sql_connection(gen):
-    '''
+    """
     Input : a 2-character string representing the pokemon generation whose
     database you want access to. Valid options are : 'ss', 'sm', 'xy', 'bw',
     'dp', 'rs', 'gs' and 'rb', ordered by age (increasing).
 
     Output : a sqlite3.Connection object representing said database.
-    '''
+    """
     try:
-        addr = 'databases/' + gen + '.db'
+        addr = '../databases/' + gen + '.db'
         con = sqlite3.connect(addr)
         print(f'Connection to {addr} successfully established.')
         return con
