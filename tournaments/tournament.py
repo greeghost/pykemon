@@ -14,7 +14,7 @@ def _blue_input(str=""):
     return input_value
 
 
-def create_tournament():
+def create_tournament(f):
     """Create a new tournament.
 
     Request the amount of teams participating as well as their names, and
@@ -39,13 +39,34 @@ def create_tournament():
     for team in teams:
         pools[current_pool % pool_amount].append(team)
         current_pool += 1
+    # Sort the team alphabetically in each pool ?
+    for pool in pools:
+        pool.sort()
     teams = sum(pools, [])
 
     # generation of `.pkt` file
-    res = f"Started\n{n} teams\n\n"
-    for team in teams:
-        res += f"{team}\n"
-    print(res)
+    # Header, amount of teams/pools, list of teams
+    res = f"Started\n\n{n}, {len(pools)}\n\n"
+    first_pool = True
+    for pool in pools:
+        if not first_pool:
+            res += "===\n"
+        for team in pool:
+            res += f"{team}\n"
+        first_pool = False
+
+    # Matches to do
+    res += "\n"
+    for pool in pools:
+        pl = len(pool)
+        for i in range(pl):
+            for j in range(i + 1, pl):
+                res += f"{pool[i]} - {pool[j]}\n"
+
+    f.seek(0)
+    f.write(res)
+    f.truncate()
+
     return res
 
 
@@ -54,15 +75,21 @@ def display_tournament():
     pass
 
 
-def update_tournament():
+def update_tournament(f):
     """Update the current tournament."""
-    pass
+    f.seek(0)
+
 
 
 if __name__ == '__main__':
     f = open(ADDR, "r+")
-    tournament_started = (f.readlines()[0] != "finished\n")
-    if not tournament_started:
-        create_tournament()
+    lines = f.readlines()
+    tournament_started = (lines[0] != "finished\n" and lines[0] != "")
+    if tournament_started:
+        print("Tournament has started.")
+        if (_blue_input("Shall we override the tournament with a new one ? [y/N] ") == "y"):
+            create_tournament(f)
+    else:
+        create_tournament(f)
     display_tournament()
-    update_tournament()
+    update_tournament(f)

@@ -1,11 +1,26 @@
-finished
-8
+Started
 
-t1
-t2
-t3
-t4
-t5
-t6
-t7
-t8
+8, 2
+
+MHI
+MN5
+PPP
+UNK
+===
+ALED
+PKR
+PRZ
+RKR
+
+MHI - MN5
+MHI - PPP
+MHI - UNK
+MN5 - PPP
+MN5 - UNK
+PPP - UNK
+ALED - PKR
+ALED - PRZ
+ALED - RKR
+PKR - PRZ
+PKR - RKR
+PRZ - RKR
