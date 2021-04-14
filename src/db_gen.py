@@ -17,7 +17,7 @@ def sql_connection(gen):
     try:
         addr = '../databases/' + gen + '.db'
         con = sqlite3.connect(addr)
-        print(f'Connection to {addr} successfully established.')
+        print(f'Connection to {gen}.db successfully established.')
         return con
     except Error:
         print(Error)
