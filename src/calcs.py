@@ -20,8 +20,8 @@ def maxspeed(pkmn):
     if len(f) == 0:
         raise InvalidPokemonName(pkmn)
     base = f[0][0]
-    return stat(base, 31, 252, 100, 1.1)
+    return stat(base, iv=31, ev=252, lvl=100, nat=1.1)
 
 
 if __name__ == '__main__':
-    print(maxspeed("gengar"))
+    print(maxspeed("Gengar"))
