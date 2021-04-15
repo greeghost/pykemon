@@ -30,6 +30,15 @@ def create_tournament(f):
     teams = []
     for _ in range(n):
         teams.append(_blue_input("\t- "))
+
+    res = _create_aux(n, teams)
+
+    f.seek(0)
+    f.write(res)
+    f.truncate()
+
+
+def _create_aux(n, teams):
     shuffle(teams)
 
     # assignment of teams in different pools
@@ -63,10 +72,6 @@ def create_tournament(f):
             for j in range(i + 1, pl):
                 res += f"{pool[i]} - {pool[j]}\n"
 
-    f.seek(0)
-    f.write(res)
-    f.truncate()
-
     return res
 
 
@@ -78,7 +83,6 @@ def display_tournament():
 def update_tournament(f):
     """Update the current tournament."""
     f.seek(0)
-
 
 
 if __name__ == '__main__':
